@@ -25,7 +25,7 @@ namespace lab06_TP.lab09.Huffmen
 
             Requency frequency = new Requency(); //объявление счетчика 
 
-            while ((bytesRead = InputFile.ReadFile(buf, size)) > 0)
+            while ((bytesRead = InputFile.ReadFile(buf, size)) > 0) // считываем с файла  [32] ->> в каждый i - символ, пока не закончится файл
             {
                 for (int i = 0; i < bytesRead; i++)
                 {
@@ -50,12 +50,12 @@ namespace lab06_TP.lab09.Huffmen
             //упаковываем
             int outPos = 0; //текущий индекс в выходном массиве в _битах_
             byte[] outBuf = new byte[32]; //выходной массив
-            bytesRead = InputFile.ReadFile(buf, size);
+            bytesRead = InputFile.ReadFile(buf, size); 
             while (bytesRead > 0)
             {
                 for (byte i = 0; i < bytesRead; i++)
                 {
-                    byte value = buf[i];
+                    byte value = buf[i]; 
                     for (byte t = 0; t < codeTable[value].Length; t++) //длина массива для каждого символа получаемого из buf
                     {
                         outBuf[outPos / 8] |= (byte)(codeTable[value][t] * Math.Pow(2, 7 - outPos % 8)); //разбиваем число на 2 байта, побитовое или
@@ -69,7 +69,7 @@ namespace lab06_TP.lab09.Huffmen
                         }
                     }
                 }
-                bytesRead = InputFile.ReadFile(buf, size);
+                bytesRead = InputFile.ReadFile(buf, size); // считываем каждый раз новый буфер по 32
             }
             if (outPos > 0) //запись оставшихся бит
             {
@@ -101,13 +101,13 @@ namespace lab06_TP.lab09.Huffmen
 
             Requency frequency = new Requency(); //получаем таблицу частот - пустую
 
-            byte[] buf = new byte[2048]; // buf[символ] - количество  
+            byte[] buf = new byte[2048]; // buf[символ] - количество  //считаный файл
 
             if ((bytesRead = inputFile.ReadFile(buf, 2048)) < 2048)
                 return -1;
             for (short i = 0; i < 256; i++)
             {
-                frequency[i] = BitConverter.ToInt64(buf, i * sizeof(long));
+                frequency[i] = BitConverter.ToInt64(buf, i * sizeof(long)); //конвертируем из  buf[i*8] - тем самым сново получает [символ] - колличество 
             }
 
             //создаем дерево
@@ -121,15 +121,15 @@ namespace lab06_TP.lab09.Huffmen
             byte[] outBuf = new byte[size];
            
 
-            bytesRead = inputFile.ReadFile(buf, size);
+            bytesRead = inputFile.ReadFile(buf, size); //считывание данных с файла 
             while (bytesRead > 0)
             {
-                int emptyBits = endBytes[0] * inputFile.EndOfFile();
+                int emptyBits = endBytes[0] * inputFile.EndOfFile(); //проверка
                 for (short i = 0; i < bytesRead * 8 - emptyBits; i++) //нумеруем _биты_
                 {
-                    byte value = buf[i >> 3];
+                    byte value = buf[i >> 3]; // свигаем биты числа i-ого
                     byte bit = (byte)(((buf[i >> 3] & 1 << (7 - i % 8)) >= 1) ? 1 : 0); //получаем значение бита под номером i
-                    outVal = tree.Decode(bit); //поочередно отправляем биты расшифровщику. если результат положительный - мы получили значение
+                    outVal = tree.Decode(bit); //поочередно отправляем биты расшифровщику - сравнение значений с деревом и возврат , если 1-А если 0-В из bit и присваивает код символа 
                     if (outVal >= 0)
                     {
                         outBuf[outPos] = (byte)outVal;

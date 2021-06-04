@@ -271,11 +271,11 @@ namespace lab06_TP
         {
             if (!isReadMode)
                 return 0;
-            int bytesRead = fileStream.Read(buffer, 0, size);
+            int bytesRead = fileStream.Read(buffer, 0, size); 
             return bytesRead;
         }
 
-        public int WriteFile(byte[] buffer, int size)
+        public int WriteFile(byte[] buffer, int size) // считываем блок байтов size  записываем в буффер 
         {
             if (isReadMode)
                 return 0;
