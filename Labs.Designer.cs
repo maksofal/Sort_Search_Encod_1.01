@@ -57,6 +57,10 @@ namespace lab06_TP
             this.BMH_search = new System.Windows.Forms.Button();
             this.KMP_search = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.Huffman_coding = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -68,10 +72,12 @@ namespace lab06_TP
             this.voinaimir_open = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.Huffman_coding = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -359,6 +365,12 @@ namespace lab06_TP
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label24);
+            this.groupBox4.Controls.Add(this.label23);
+            this.groupBox4.Controls.Add(this.label22);
+            this.groupBox4.Controls.Add(this.button3);
+            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.button1);
             this.groupBox4.Controls.Add(this.label19);
             this.groupBox4.Controls.Add(this.label20);
             this.groupBox4.Controls.Add(this.label21);
@@ -377,6 +389,43 @@ namespace lab06_TP
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Архиваторы - lab09";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(495, 235);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(16, 17);
+            this.label19.TabIndex = 23;
+            this.label19.Text = "?";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(13, 235);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(16, 17);
+            this.label20.TabIndex = 22;
+            this.label20.Text = "?";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(128, 198);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(42, 17);
+            this.label21.TabIndex = 21;
+            this.label21.Text = "time: ";
+            // 
+            // Huffman_coding
+            // 
+            this.Huffman_coding.Location = new System.Drawing.Point(16, 189);
+            this.Huffman_coding.Name = "Huffman_coding";
+            this.Huffman_coding.Size = new System.Drawing.Size(96, 34);
+            this.Huffman_coding.TabIndex = 20;
+            this.Huffman_coding.Text = "Huffman";
+            this.Huffman_coding.UseVisualStyleBackColor = true;
+            this.Huffman_coding.Click += new System.EventHandler(this.Huffman_coding_Click);
             // 
             // label16
             // 
@@ -477,42 +526,62 @@ namespace lab06_TP
             this.textBox1.Size = new System.Drawing.Size(220, 22);
             this.textBox1.TabIndex = 5;
             // 
-            // label19
+            // button1
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(495, 235);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(16, 17);
-            this.label19.TabIndex = 23;
-            this.label19.Text = "?";
+            this.button1.Location = new System.Drawing.Point(363, 33);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(96, 34);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "RLE decod";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.RLE_decoder_Click);
             // 
-            // label20
+            // button2
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(13, 235);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(16, 17);
-            this.label20.TabIndex = 22;
-            this.label20.Text = "?";
+            this.button2.Location = new System.Drawing.Point(363, 114);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(96, 34);
+            this.button2.TabIndex = 25;
+            this.button2.Text = "LZ77 decod";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.LZ77_decoder_Click);
             // 
-            // label21
+            // button3
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(128, 198);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(42, 17);
-            this.label21.TabIndex = 21;
-            this.label21.Text = "time: ";
+            this.button3.Location = new System.Drawing.Point(363, 189);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(120, 34);
+            this.button3.TabIndex = 26;
+            this.button3.Text = "Huffman decod";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Huffman_decoder_Click);
             // 
-            // Huffman_coding
+            // label22
             // 
-            this.Huffman_coding.Location = new System.Drawing.Point(16, 189);
-            this.Huffman_coding.Name = "Huffman_coding";
-            this.Huffman_coding.Size = new System.Drawing.Size(96, 34);
-            this.Huffman_coding.TabIndex = 20;
-            this.Huffman_coding.Text = "Huffman";
-            this.Huffman_coding.UseVisualStyleBackColor = true;
-            this.Huffman_coding.Click += new System.EventHandler(this.Huffman_coding_Click);
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(495, 42);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(42, 17);
+            this.label22.TabIndex = 27;
+            this.label22.Text = "time: ";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(495, 123);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(42, 17);
+            this.label23.TabIndex = 28;
+            this.label23.Text = "time: ";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(495, 201);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(42, 17);
+            this.label24.TabIndex = 29;
+            this.label24.Text = "time: ";
             // 
             // Labs
             // 
@@ -586,5 +655,11 @@ namespace lab06_TP
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Button Huffman_coding;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }

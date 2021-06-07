@@ -47,20 +47,38 @@ namespace lab06_TP
             }
         }
 
-        public void File_fin(List<Pair> Go, string name)
+        public void File_fin(string Go, string name)
         {
             using (StreamWriter fs = new StreamWriter($"{name}.txt", false, Encoding.GetEncoding(1251)))
             {
-                foreach (Pair file in Go)
+                fs.Write(Go);
+            }
+        }
+
+
+        public void File_fin(List<Pair> Go, string name)
+        {
+            string s = null;
+            using (FileStream stream = new FileStream($"{name}.bin", FileMode.Create, FileAccess.Write))
+            {
+                using (BinaryWriter fs = new BinaryWriter(stream, Encoding.GetEncoding(1251)))
                 {
-                  //  if (file.start_index != 0 && file.lenght != 0)
-                  //  {
-                      //  fs.Write($"{file.start_index} {file.lenght} {file.letter} ");
-                  //  }
-                  //  else
-                   // {
-                        fs.Write($"{file.letter}");
-                    //}
+                    foreach (Pair file in Go)
+                    {
+                        if (file.letter != 0 && file.lenght != 0)
+                        {
+                             s += "<" + Convert.ToByte(file.start_index) + " " + Convert.ToByte(file.lenght) + " " + file.letter + ">";
+
+                            fs.Write(s);
+                        }
+                        else
+                        {
+                            s += file.letter.ToString();
+                        }
+
+                    }
+
+                    fs.Write(s);
 
                 }
             }
@@ -213,13 +231,12 @@ namespace lab06_TP
         }
         public void RLE_file_coding_save(byte[] list, string name)
         {
-            using (FileStream stream = new FileStream($"{name}.bin", FileMode.Create, FileAccess.Write))
+
+            using (BinaryWriter fs = new BinaryWriter(System.IO.File.Open($"{name}.bin", FileMode.Create)))
             {
-                using (BinaryWriter fs = new BinaryWriter(stream, Encoding.GetEncoding("windows-1251")))
-                {
-                    fs.Write(list);
-                }
+                fs.Write(list);
             }
+            
 
         }
 
@@ -237,7 +254,19 @@ namespace lab06_TP
 
             }            
         }
-        
+
+
+        public void File_fin_lz(List<string> Go, string name)
+        {
+            using (StreamWriter fs = new StreamWriter($"{name}.lz77", false, Encoding.GetEncoding(1251)))
+            {
+                foreach (string file in Go)
+                {
+                    fs.Write(file);
+                }
+            }
+        }
+
 
     }
     class FileOperation //для чтения файла и записи результата

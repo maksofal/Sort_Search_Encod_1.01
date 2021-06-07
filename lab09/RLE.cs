@@ -62,8 +62,8 @@ namespace lab6_TP.lab09
                         Add(packedArray, ref key);
                     }
                     packedArray.Add(list[i]);
-                    packedArray[key] = packedArray[key] > 0x80 ? (byte)(packedArray[key] + count) : (byte)(0x80 + count); // key постоянная пока не найдет одинаковые элеметы
-                                                                                                                          // а пока записываем по этому индексу количество неодинаковых байтов в поледовательности
+                    packedArray[key] = packedArray[key] > 0x80 ? (byte)(packedArray[key] + count) : (byte)(0x80 + count); 
+                                                                                                                          
                 }
                 i+=count;
             }

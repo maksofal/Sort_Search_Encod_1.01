@@ -23,6 +23,7 @@ namespace lab06_TP.lab09.Huffmen
             int bytesRead;
             byte[] buf = new byte[size];
 
+
             Requency frequency = new Requency(); //объявление счетчика 
 
             while ((bytesRead = InputFile.ReadFile(buf, size)) > 0) // считываем с файла  [32] ->> в каждый i - символ, пока не закончится файл
@@ -58,7 +59,7 @@ namespace lab06_TP.lab09.Huffmen
                     byte value = buf[i]; //берем i символ из файла 
                     for (byte t = 0; t < codeTable[value].Length; t++) //длина массива для каждого символа получаемого из buf
                     {
-                        outBuf[outPos / 8] |= (byte)(codeTable[value][t] * Math.Pow(2, 7 - outPos % 8)); //разбиваем число на 2 байта, побитовое или, получаем код символа
+                        outBuf[outPos / 8] |= (byte)(codeTable[value][t] * Math.Pow(2, 7 - outPos % 8)); //разбиваем число на 2 байта, побитовое или, получаем код [символа]
                         outPos++;
                         if (outPos >= 32 * 8)
                         {

@@ -17,6 +17,8 @@ namespace lab06_TP.lab09
 
         public List<Pair> Compress(char[] data)
         {
+            string s = null;
+            List<string> s_go = new List<string>();
             int window_length = 255;           
             int array_lenght = data.Length;
             int look_ahead = 0;
@@ -50,14 +52,14 @@ namespace lab06_TP.lab09
                                     if (data[n] == data[i + ctr]) //сравнение --> индекс [текущий индекс -(минус) из словаря совпадений] - позиция схожего символа  == текущая позиция в исходной строке + 1,2,3....
                                     {
                                         item.lenght++; c = item.lenght; // нужны как минимум слова с длиной 6 
+                                       
                                     }
                                     else
                                         break;
                                 }
                             }
                         }
-                       // if (c > 5)
-                       // {
+                                                    
                             Matcher result = new Matcher();
                             int counter = 0;
                             foreach (Matcher item in match_list) //нахождение слова с большей длиной   
@@ -71,49 +73,111 @@ namespace lab06_TP.lab09
                                 }
                                 counter++;
                             }
-
+                        if (c > 5)
+                        {
                             if (i + result.lenght >= data.Length)
                             {                                
                                 byte result_lenght = (byte)result.lenght;
                                 byte result_start_index = (byte)result.start_index;
                                 Add_pair(result_lenght, result_start_index, '.');
+
+                                s_go.Add($"<{result_lenght} { result_start_index} ."); 
                             }
                             else
                             {
                                 byte result_lenght = (byte)result.lenght;
                                 byte result_start_index = (byte)result.start_index;
                                 Add_pair(result_lenght, result_start_index, data[i + result.lenght]);
+                                s_go.Add($"<{result_lenght} { result_start_index} {data[i + result.lenght]}>");
                             }
                             i = i + result.lenght;
-                       // }
-                      //  else
-                       // {
-                       //     Add_pair(0, 0, data[i]);
-                       // }
+                        }
+                        else
+                        {
+                            Add_pair(0, 0, data[i]);
+
+                            s_go.Add($"{data[i]}");
+
+                        }
                     }
                     else
                     {
                         Add_pair(0, 0, data[i]);
+                        s_go.Add($"{data[i]}");
                     }
                 }
                 else
                 {
                     Add_pair(0, 0, data[i]);
+                    s_go.Add($"{data[i]}");
                 }
             }
-
+           
             Start start = new Start();
-            start.File_fin(output_list, "LZ77_coding");
+            start.File_fin_lz(s_go, "LZ77_coding");
 
             return output_list;
 
         }
 
-        public string Decompress(List<Pair> input_list)
+        public void Decompress()
         {
+            byte[] b  = new byte[1];
+            output_list = new List<Pair>();
+            List<byte> vs = new List<byte>();
+            string ind = null;
+            string  len = null;
+            char c = '\0';
+            
+                using (StreamReader fs = new StreamReader($"LZ77_coding.lz77", Encoding.GetEncoding(1251)))
+                {                   
+                    char[] s  = fs.ReadToEnd().ToArray();
+                      
+                    for(int i = 0; i < s.Length; i++)
+                    {
+                        if (s[i] == '<')
+                        {
+                            i++;
+                            while (s[i] != ' ')
+                            {
+                                ind += s[i];
+                                i++;
+                            }
+
+                            i++;
+
+                            while (s[i] != ' ')
+                            {
+                                len += s[i];
+                                i++;
+                            }
+
+                            i++;
+
+                            while (s[i] != '>')
+                            {
+                                c = s[i];
+                                i++;
+                            }
+
+                            Add_pair(Convert.ToByte(ind), Convert.ToByte(len), c);
+                            ind = null;
+                            len = null;
+                            c = '\0';
+
+                        }
+                        else
+                        {
+                            Add_pair(0, 0, s[i]);
+                        }
+                    }
+                   
+                }
+            
+
             List<Char> decoded = new List<char>();
             int counter = 0;
-            foreach (Pair item in input_list)
+            foreach (Pair item in output_list)
             {
                 if (item.lenght == 0)
                 {
@@ -136,7 +200,7 @@ namespace lab06_TP.lab09
             Start start = new Start();
             start.File_fin(decoded, "LZ77_coding_decoding");
 
-            return new string(decoded.ToArray());
+           // return new string(decoded.ToArray());
         }
 
         private void Add_pair(byte lenght, byte start_index, char letter)

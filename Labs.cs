@@ -409,7 +409,7 @@ namespace lab06_TP
             int rez = 0;
             for (int i = 0; i < str.Length; i++)
             {
-                rez += (int)Math.Pow(p, str.Length - 1 - i) * (int)(str[i]);//РџРѕРґСЃС‡РµС‚ С…РµС€-С„СѓРЅРєС†РёРё
+                rez += (int)Math.Pow(p, str.Length - 1 - i) * (int)(str[i]);
             }
             return rez;
         }
@@ -428,19 +428,10 @@ namespace lab06_TP
             TimeSpan ime2 = DateTime.Now - dd;
             label13.Text += $"Coding^ {ime2.ToString()} ";
 
-            DateTime d = DateTime.Now;
-            rle.RLE_decoding("RLE_cod");
-            TimeSpan ime = DateTime.Now - dd;
-            label13.Text += $"Decoding^ {ime.ToString()}";
-
             var cod = new System.IO.FileInfo("RLE_cod.bin").Length;
             double coding = Math.Round(cod / Math.Pow(2, 20), 4);
             label14.Text += $" Coding^ {coding.ToString()} KB ";
-
-            var dec = new System.IO.FileInfo("RLE_cod_decoder.txt").Length;
-            double decoder = Math.Round(dec / Math.Pow(2, 20), 4);
-            label14.Text += $" Decoding^ {decoder.ToString()} KB ";
-
+           
             double sieze = Math.Round((1 - (coding / num)) * 100, 4);
             label15.Text = $"Степень: {sieze.ToString()}";           
         }
@@ -448,33 +439,21 @@ namespace lab06_TP
         private void LZ77_coding_Click(object sender, EventArgs e)
         {
             string s = txt.Voinaimir();
-
             LZ77 lz = new LZ77();
             DateTime dd = DateTime.Now;
             lz.Compress(s.ToArray());
             TimeSpan ime2 = DateTime.Now - dd;
             label18.Text += $"Coding^ {ime2.ToString()} ";
 
-            DateTime d = DateTime.Now;
-            lz.Decompress(lz.output_list);
-            TimeSpan ime = DateTime.Now - d;
-
-            label18.Text += $"Decoding^ {ime.ToString()}";
-
-            var cod = new System.IO.FileInfo("LZ77_coding.txt").Length;
+            var cod = new System.IO.FileInfo("LZ77_coding.lz77").Length;
             double coding = Math.Round(cod / Math.Pow(2, 20), 4);
             label17.Text = $" Coding^ {coding.ToString()} KB ";
-
-            var dec = new System.IO.FileInfo("LZ77_coding_decoding.txt").Length;
-            double decoder = Math.Round(dec / Math.Pow(2, 20), 4);
-            label17.Text += $" Decoding^ {decoder.ToString()} KB ";
-
+          
             var fileSize = new System.IO.FileInfo("войнаимир.txt").Length;
             num = Math.Round(fileSize / Math.Pow(2, 20), 4);
 
             double sieze = Math.Round((1 - (coding / num)) * 100, 4);
             label16.Text = $"Степень: {sieze.ToString()}";
-
         }
 
         static Dictionary<string, string> huffmanTable = new Dictionary<string, string>();
@@ -487,29 +466,55 @@ namespace lab06_TP
             TimeSpan ime2 = DateTime.Now - dd;
             label21.Text += $"Coding^ {ime2.ToString()} ";
 
-            DateTime d = DateTime.Now;
-            control.Decoding();
-            TimeSpan ime = DateTime.Now - d;
-            label21.Text += $"Decoding^ {ime.ToString()}";
-
             var cod = new System.IO.FileInfo("Huffman_coding.bin").Length;
             double coding = Math.Round(cod / Math.Pow(2, 20), 4);
-            label20.Text = $" Coding^ {coding.ToString()} KB ";
-
-            var dec = new System.IO.FileInfo("Huffman_coding_decoding.txt").Length;
-            double decoder = Math.Round(dec / Math.Pow(2, 20), 4);
-            label20.Text += $" Decoding^ {decoder.ToString()} KB ";
+            label20.Text = $" Coding^ {coding.ToString()} KB ";            
 
             var fileSize = new System.IO.FileInfo("войнаимир.txt").Length;
             num = Math.Round(fileSize / Math.Pow(2, 20), 4);
 
             double sieze = Math.Round((1 - (coding / num)) * 100, 4);
             label19.Text = $"Степень: {sieze.ToString()}";
-
-
         }
 
+        private void RLE_decoder_Click(object sender, EventArgs e)
+        {
+            RLE rle = new RLE();
+            DateTime d = DateTime.Now;
+            rle.RLE_decoding("RLE_cod");
+            TimeSpan ime = DateTime.Now - d;
+            label22.Text += $"Decoding^ {ime.ToString()}";
 
+            var dec = new System.IO.FileInfo("RLE_cod_decoder.txt").Length;
+            double decoder = Math.Round(dec / Math.Pow(2, 20), 4);
+            label14.Text += $" Decoding^ {decoder.ToString()} KB ";
+        }
+
+        private void LZ77_decoder_Click(object sender, EventArgs e)
+        {
+            LZ77 lz = new LZ77();
+            DateTime d = DateTime.Now;
+            lz.Decompress();
+            TimeSpan ime = DateTime.Now - d;
+            label23.Text += $"Decoding^ {ime.ToString()}";
+
+            var dec = new System.IO.FileInfo("LZ77_coding_decoding.txt").Length;
+            double decoder = Math.Round(dec / Math.Pow(2, 20), 4);
+            label17.Text += $" Decoding^ {decoder.ToString()} KB ";
+        }
+
+        private void Huffman_decoder_Click(object sender, EventArgs e)
+        {
+            Controll control = new Controll();
+            DateTime d = DateTime.Now;
+            control.Decoding();
+            TimeSpan ime = DateTime.Now - d;
+            label24.Text += $"Decoding^ {ime.ToString()}";
+
+            var dec = new System.IO.FileInfo("Huffman_coding_decoding.txt").Length;
+            double decoder = Math.Round(dec / Math.Pow(2, 20), 4);
+            label20.Text += $" Decoding^ {decoder.ToString()} KB ";
+        }
     }
 
 }
