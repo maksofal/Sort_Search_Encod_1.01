@@ -11,7 +11,13 @@ Lab06 Sorting
   3. Radix
   4. Quick
 
+lab08 Substring search algorithm
+  1. LSD
+  2. MSD
+  3. KMP
+
 Lab09 Archiving algorithm
   1. Huffman
   2. LZ77
   3. RLE
+
