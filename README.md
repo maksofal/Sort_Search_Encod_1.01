@@ -4,7 +4,8 @@ Lab06 Sorting
   2.  Counting
   3.  Insertion
   4.  Selection
-Lab07 Sorting
+ 
+ Lab07 Sorting
   1. BinaryTreeNode
   2. Merge
   3. Radix
