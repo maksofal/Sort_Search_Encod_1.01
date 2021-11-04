@@ -10,3 +10,8 @@ Lab06 Sorting
   2. Merge
   3. Radix
   4. Quick
+
+Lab09 Archiving algorithm
+  1. Huffman
+  2. LZ77
+  3. RLE
